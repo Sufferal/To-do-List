@@ -1,16 +1,32 @@
-import React from 'react'
+import React, { useState } from "react";
 
-const Form = () => {
-  const formHandler = (e) => {
+const Form = ({ addTask }) => {
+  const [input, setInput] = useState("");
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-  }
-  
-  return (
-    <form className='form' onSubmit={formHandler}>
-      <input className='input input-text' type="text" placeholder='clean my room' />
-      <button className='btn btn-add'>Add</button>
-    </form>
-  )
-}
 
-export default Form
+    if (!input) {
+      return;
+    }
+
+    addTask(input);
+    setInput('');
+  };
+
+  return (
+    <form className="form" onSubmit={handleSubmit}>
+      <input
+        className="input input-text"
+        type="text"
+        placeholder="write a task..."
+        autoFocus
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button className="btn btn-add">Add</button>
+    </form>
+  );
+};
+
+export default Form;
